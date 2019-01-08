@@ -1,0 +1,2 @@
+# FlagMan
+An Android application
