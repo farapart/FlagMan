@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class MyCalendar extends View{
 
-    final private int judge = 150;
+    final private int judge = 180;
 
     private String TAG = "CustomCalendar";
 
@@ -211,7 +211,7 @@ public class MyCalendar extends View{
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);   //获取宽的尺寸
         columnWidth = widthSize / 7;
         //高度 = 标题高度 + 星期高度 + 日期行数*每行高度
-        float height = titleHeight + weekHeight + (lineNum * oneHeight);
+        float height = titleHeight + weekHeight + (lineNum * oneHeight) + judge;
         Log.v(TAG, "标题高度："+titleHeight+" 星期高度："+weekHeight+" 每行高度："+oneHeight+
                 " 行数："+ lineNum + "  \n控件高度："+height);
         setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),
