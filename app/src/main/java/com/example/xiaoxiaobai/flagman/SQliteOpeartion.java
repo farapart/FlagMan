@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 class TaskInfo{
-    String year;
-    String month;
-    String day;
+    int year;
+    int month;
+    int day;
     int task_num;
     int finished_num;
 }
@@ -29,13 +29,16 @@ public class SQliteOpeartion extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
+        db.execSQL("drop table if exists CurrentTask");
+        db.execSQL("drop table if exists Task");
+
         String Table_task = "CREATE TABLE CurrentTask(id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "appName VARCHAR(50), "+
                 "timeLimit INTEGER)";
         String Task = "CREATE TABLE Task(id INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                "year VARCHAR(4), "+
-                "month VARCHAR(2), "+
-                "day VARCHAR(2), "+
+                "year INTEGER, "+
+                "month INTEGER, "+
+                "day INTEGER, "+
                 "taskNum INTEGER, "+
                 "finishedNum INTEGER)";
         db.execSQL(Table_task);
@@ -81,14 +84,14 @@ public class SQliteOpeartion extends SQLiteOpenHelper {
         Log.i("SQLite", delete);
     }
 
-    public static void SelectFromTask(SQLiteDatabase db, String year, String month){
+    public static void SelectFromTask(SQLiteDatabase db, int year, int month){
         List.clear();
-        Cursor cursor = db.query("Task", null, "year == ? AND month == ?", new String[]{year, month}, null, null, null, null);
+        Cursor cursor = db.query("Task", null, "year == ? AND month == ?", new String[]{String.valueOf(year), String.valueOf(month)}, null, null, null, null);
         while (cursor.moveToNext()) {
             TaskInfo temp = new TaskInfo();
-            temp.year = cursor.getString(1);
-            temp.month = cursor.getString(2);
-            temp.day = cursor.getString(3);
+            temp.year = cursor.getInt(1);
+            temp.month = cursor.getInt(2);
+            temp.day = cursor.getInt(3);
             temp.task_num = cursor.getInt(4);
             temp.finished_num = cursor.getInt(5);
             List.add(temp);
@@ -96,9 +99,9 @@ public class SQliteOpeartion extends SQLiteOpenHelper {
     }
 
     public static void InsertIntoTask(SQLiteDatabase db, TaskInfo info){
-        String insert = "INSERT INTO Task VALUES("+'"'+info.year+'"'+", "
-                +'"'+info.month+'"'+", "
-                +'"'+info.day+'"'+", "
+        String insert = "INSERT INTO Task(year, month, day, taskNum, finishedNum) VALUES("+info.year+", "
+                +info.month+", "
+                +info.day+", "
                 +info.task_num +", "+ info.finished_num+")";
         db.execSQL(insert);
         Log.i("SQLite", insert);

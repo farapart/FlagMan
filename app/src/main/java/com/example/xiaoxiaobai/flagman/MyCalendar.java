@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.xiaoxiaobai.flagman.MainActivity.*;
+import static com.example.xiaoxiaobai.flagman.MainActivity.list;
+
 
 public class MyCalendar extends View{
 
@@ -67,6 +70,7 @@ public class MyCalendar extends View{
     private int columnWidth;       //每列宽度
 
     private Date month; //当前的月份
+
     private boolean isCurrentMonth;       //展示的月份是否是当前月
     private int currentDay, selectDay, lastSelectDay;    //当前日期 、 选中的日期 、上一次选中的日期（避免造成重复回调请求）
 
@@ -553,7 +557,15 @@ public class MyCalendar extends View{
     private Map<Integer, MainActivity.DayFinish> map;
     public void setRenwu(String month, List<MainActivity.DayFinish> list){
         setMonth(month);
-
+        Calendar calendar = Calendar.getInstance();
+        int forMonth = calendar.get(Calendar.MONTH)+1;
+        int forYear = calendar.get(Calendar.YEAR);
+        list.clear();
+        SQliteOpeartion.SelectFromTask(db, forYear, forMonth);
+        for(TaskInfo info : SQliteOpeartion.List){
+            MainActivity.DayFinish temp = new MainActivity.DayFinish(info.day, info.finished_num, info.task_num);
+            list.add(temp);
+        }
         if(list!=null && list.size()>0){
             map.clear();
             for(MainActivity.DayFinish finish : list){
@@ -579,6 +591,14 @@ public class MyCalendar extends View{
         setMonth(getMonthStr(calendar.getTime()));
         map.clear();
         invalidate();
+        int forMonth = calendar.get(Calendar.MONTH)+1;
+        int forYear = calendar.get(Calendar.YEAR);
+        SQliteOpeartion.SelectFromTask(db, forYear, forMonth);
+        list.clear();
+        for(TaskInfo info : SQliteOpeartion.List){
+            MainActivity.DayFinish temp = new MainActivity.DayFinish(info.day, info.finished_num, info.task_num);
+            list.add(temp);
+        }
     }
 
     private onClickListener listener;
