@@ -74,6 +74,8 @@ public class SQliteOpeartion extends SQLiteOpenHelper {
     }
 
     public static void DeleteFromCurrentTask(SQLiteDatabase db, String app_name){
+        Cursor cursor = db.query("CurrentTask", null, "appName == ?", new String[]{app_name}, null, null, null, null);
+        if(!cursor.moveToNext()) return;
         String delete = "DELETE FROM CurrentTask WHERE appName == "+'"'+app_name+'"';
         db.execSQL(delete);
         Log.i("SQLite", delete);

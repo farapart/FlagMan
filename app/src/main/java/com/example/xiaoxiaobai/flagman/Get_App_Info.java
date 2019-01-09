@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
 import java.util.ArrayList;
@@ -30,9 +31,9 @@ public class Get_App_Info {
     private void setShowList() {
         this.ShowList = new ArrayList<>();
         for(int i=0;i<AppInfoList.size();i++) {
-            if(AppInfoList.get(i).getUsedTimebyDay() > 0 ) { //&& AppInfoList.get(i).getTimes() > 0) {
+            //if(AppInfoList.get(i).getUsedTimebyDay() > 0 ) {
                 this.ShowList.add(AppInfoList.get(i));
-            }
+            //}
         }
 
         //将显示列表中的应用按显示顺序排序
