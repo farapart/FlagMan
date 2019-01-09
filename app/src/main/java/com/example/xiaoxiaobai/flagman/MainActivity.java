@@ -2,6 +2,7 @@ package com.example.xiaoxiaobai.flagman;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
 
         list.add(new DayFinish(1,2,2));
         list.add(new DayFinish(2,1,2));
