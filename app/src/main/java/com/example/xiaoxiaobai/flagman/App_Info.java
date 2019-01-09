@@ -14,6 +14,7 @@ public class App_Info {
     private long UsedTimebyDay;  //milliseconds
     private Context context;
     private int times;
+    private long flagtime;
 
 
     public App_Info(UsageStats usageStats , Context context) {
@@ -35,9 +36,13 @@ public class App_Info {
         this.UsedTimebyDay = usageStats.getTotalTimeInForeground();
         this.times = (Integer)usageStats.getClass().getDeclaredField("mLaunchCount").get(usageStats);
 
-        if(this.UsedTimebyDay > 0) {
+        //if(this.UsedTimebyDay > 0) {
             this.Icon = applicationInfo.loadIcon(packageManager);
-        }
+        //}
+    }
+
+    public void setFlagtime(long flagtime) {
+        this.flagtime = flagtime;
     }
 
     public UsageStats getUsageStats() {
@@ -71,4 +76,6 @@ public class App_Info {
     public String getPackageName() {
         return packageName;
     }
+
+    public long getFlagtime() { return flagtime; }
 }

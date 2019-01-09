@@ -2,8 +2,11 @@ package com.example.xiaoxiaobai.flagman;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.usage.UsageStats;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -12,20 +15,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Check_App_Info extends AppCompatActivity {
+public class Check_App_Info extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ArrayList<App_Info> ShowList;
     private ArrayList<App_Info> AppInfoList;
     private List<UsageStats> result;
+    private long FlagTime, tmpTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +50,16 @@ public class Check_App_Info extends AppCompatActivity {
         List<Map<String,Object>> datalist = null;
 
         Get_App_Info statisticsInfo = new Get_App_Info(this);
-        datalist = getDataList(statisticsInfo.getShowList());
+        ShowList = statisticsInfo.getShowList();
+        datalist = getDataList(ShowList);
 
         ListView listView = (ListView)findViewById(R.id.AppStatisticsList);
+
         SimpleAdapter adapter = new SimpleAdapter(this,datalist,R.layout.inner_list,
                 new String[]{"label","info","times","icon"},
                 new int[]{R.id.label,R.id.info,R.id.times,R.id.icon});
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
 
         adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
@@ -82,4 +92,62 @@ public class Check_App_Info extends AppCompatActivity {
 
         return dataList;
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String label = ShowList.get(position).getLabel();
+        FlagTime = ShowList.get(position).getFlagtime();
+//        Toast. makeText (Check_App_Info.this, label, Toast. LENGTH_LONG ).show();
+
+        final String[] items = new String[] { "无", "10min", "20min", "30min", "60min", "90min", "120min" };
+        AlertDialog.Builder builder = new AlertDialog.Builder(Check_App_Info.this);
+//        builder.setIcon(R.drawable. tools ); //设置对话框的图标
+        builder.setTitle("请选择要使用的情景模式：");  //设置对话框的标题
+        builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        tmpTime = 0;
+                        break;
+                    case 1:
+                        tmpTime = 10;
+                        break;
+                    case 2:
+                        tmpTime = 20;
+                        break;
+                    case 3:
+                        tmpTime = 30;
+                        break;
+                    case 4:
+                        tmpTime = 60;
+                        break;
+                    case 5:
+                        tmpTime = 90;
+                        break;
+                    case 6:
+                        tmpTime = 120;
+                        break;
+                }
+                Toast. makeText (Check_App_Info.this, "您选择了" + items[which], Toast. LENGTH_SHORT ).show(); //显示选择结果
+            }
+        });
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FlagTime = tmpTime;
+                Toast.makeText(Check_App_Info.this, "FlagTime: " + FlagTime + "min.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast. makeText (Check_App_Info.this, "还是不立Flag了吧~", Toast. LENGTH_SHORT ).show();
+            }
+        });
+
+        builder.create().show(); // 创建对话框并显示
+    }
+
 }
