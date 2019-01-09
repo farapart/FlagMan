@@ -84,6 +84,12 @@ public class SQliteOpeartion extends SQLiteOpenHelper {
         Log.i("SQLite", delete);
     }
 
+    public static void DeleteAllCurrentTask(SQLiteDatabase db){
+        String delete = "DELETE FROM CurrentTask ";
+        db.execSQL(delete);
+        Log.i("SQLite", delete);
+    }
+
     public static void SelectFromTask(SQLiteDatabase db, int year, int month){
         List.clear();
         Cursor cursor = db.query("Task", null, "year == ? AND month == ?", new String[]{String.valueOf(year), String.valueOf(month)}, null, null, null, null);

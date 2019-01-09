@@ -23,6 +23,7 @@ import android.widget.Toast;
 import android.app.AlertDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
 
         AppOpsManager appOps = (AppOpsManager) this.getSystemService(Context.APP_OPS_SERVICE);
         int mode = appOps.checkOpNoThrow("android:get_usage_stats", android.os.Process.myUid(), this.getPackageName());
@@ -81,7 +83,11 @@ public class MainActivity extends AppCompatActivity
         //cal.setRenwu("2019年1月", list);
 
 
-        cal.setRenwu("2019年1月", list);
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        cal.setRenwu(String.valueOf(year) + "年" + String.valueOf(month) + "月", list);
+
         cal.setOnClickListener(new MyCalendar.onClickListener() {
             @Override
             public void onLeftRowClick() {
@@ -144,6 +150,15 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        cal.setRenwu(String.valueOf(year) + "年" + String.valueOf(month) + "月", list);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -171,7 +186,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast. makeText (MainActivity.this, "会有新功能的！", Toast. LENGTH_SHORT ).show();
+            Intent intent = new Intent(MainActivity.this, Check_Flag.class);
+            startActivity(intent);
             return true;
         }
 

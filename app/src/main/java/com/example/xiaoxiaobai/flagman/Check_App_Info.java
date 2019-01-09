@@ -89,9 +89,9 @@ public class Check_App_Info extends AppCompatActivity implements AdapterView.OnI
             map.put("times","本次开机操作次数: " + appInformation.getTimes());
             map.put("icon",appInformation.getIcon());
             if (appInformation.getFlagtime() == 0)
-                map.put("flagtime", "无使用上限");
+                map.put("flagtime", "没有插Flag~");
             else
-                map.put("flagtime", "使用时间上限：" + DateUtils.formatElapsedTime(appInformation.getFlagtime() * 60));
+                map.put("flagtime", "Flag！使用时间不超过：" + DateUtils.formatElapsedTime(appInformation.getFlagtime() * 60));
             dataList.add(map);
         }
 

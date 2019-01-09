@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_set"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/setflag"
             android:title="不如立个Flag~" />
         <item
             android:id="@+id/nav_todo1"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/setflag"
             android:title="开发者的Flag1" />
         <item
             android:id="@+id/nav_todo2"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/setflag"
             android:title="开发者的Flag2" />
         <item
             android:id="@+id/nav_todo3"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/setflag"
             android:title="开发者的Flag3" />
     </group>
 
@@ -26,7 +26,7 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/meow"
                 android:title="关于我们" />
         </menu>
     </item>

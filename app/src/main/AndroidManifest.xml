@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Check_App_Info"></activity>
+        <activity android:name=".Check_Flag"></activity>
     </application>
 
 </manifest>
