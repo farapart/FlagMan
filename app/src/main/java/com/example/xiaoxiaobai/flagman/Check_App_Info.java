@@ -32,7 +32,6 @@ public class Check_App_Info extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_info);
         onResume();
-
     }
 
     //每次重新进入界面的时候加载listView

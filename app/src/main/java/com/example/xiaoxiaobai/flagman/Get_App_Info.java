@@ -14,9 +14,11 @@ public class Get_App_Info {
     private ArrayList<App_Info> ShowList;
     private ArrayList<App_Info> AppInfoList;
     private List<UsageStats> result;
+    private long begintime;
 
     public Get_App_Info(Context context) {
         try {
+            begintime = getBeginTime();
             setUsageStatsList(context);
             setShowList();
         } catch (NoSuchFieldException e) {
@@ -64,14 +66,13 @@ public class Get_App_Info {
         if(m != null) {
             Calendar calendar = Calendar.getInstance();
             long now = calendar.getTimeInMillis();
-            long begintime = getBeginTime();
             this.result = m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, begintime, now);
         }
     }
 
     private long getBeginTime() {
         Calendar calendar = Calendar.getInstance();
-        long begintime;
+        long btime;
 
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
@@ -81,27 +82,23 @@ public class Get_App_Info {
         calendar.add(Calendar.MINUTE, -1 * minute);
         calendar.add(Calendar.HOUR, -1 * hour);
 
-        begintime = calendar.getTimeInMillis();
+        btime = calendar.getTimeInMillis();
 
-        return begintime;
+        return btime;
     }
 
     private List<UsageStats> MergeList( List<UsageStats> result) {
         List<UsageStats> Mergeresult = new ArrayList<>();
 
         for(int i=0;i<result.size();i++) {
-
-            long begintime;
-            begintime = getBeginTime();
-
-            if(result.get(i).getFirstTimeStamp() > begintime) {
-                int num = FoundUsageStats(Mergeresult, result.get(i));
-                if (num >= 0) {
-                    UsageStats u = Mergeresult.get(num);
-                    u.add(result.get(i));
-                    Mergeresult.set(num, u);
-                } else Mergeresult.add(result.get(i));
-            }
+            //if(result.get(i).getFirstTimeStamp() > begintime) {
+            int num = FoundUsageStats(Mergeresult, result.get(i));
+            if (num >= 0) {
+                UsageStats u = Mergeresult.get(num);
+                u.add(result.get(i));
+                Mergeresult.set(num, u);
+            } else Mergeresult.add(result.get(i));
+            //}
         }
         return Mergeresult;
     }
