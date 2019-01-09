@@ -1,6 +1,7 @@
 package com.example.xiaoxiaobai.flagman;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private MyCalendar cal ;
+    final private String database_name = "FlagMan.db";
     final List<DayFinish> list = new ArrayList<>();
 
     @Override
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity
         cal = (MyCalendar)findViewById(R.id.cal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,39 +56,16 @@ public class MainActivity extends AppCompatActivity
 
         startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
 
-        list.add(new DayFinish(1,2,2));
-        list.add(new DayFinish(2,1,2));
-        list.add(new DayFinish(3,0,2));
-        list.add(new DayFinish(4,2,2));
-        list.add(new DayFinish(5,2,2));
-        list.add(new DayFinish(6,2,2));
-        list.add(new DayFinish(7,2,2));
-        list.add(new DayFinish(8,0,2));
-        list.add(new DayFinish(9,1,2));
-        list.add(new DayFinish(10,2,2));
-        list.add(new DayFinish(11,5,2));
-        list.add(new DayFinish(12,2,2));
-        list.add(new DayFinish(13,2,2));
-        list.add(new DayFinish(14,3,2));
-        list.add(new DayFinish(15,2,2));
-        list.add(new DayFinish(16,1,2));
-        list.add(new DayFinish(17,0,2));
-        list.add(new DayFinish(18,2,2));
-        list.add(new DayFinish(19,2,2));
-        list.add(new DayFinish(20,0,2));
-        list.add(new DayFinish(21,2,2));
-        list.add(new DayFinish(22,1,2));
-        list.add(new DayFinish(23,2,0));
-        list.add(new DayFinish(24,0,2));
-        list.add(new DayFinish(25,2,2));
-        list.add(new DayFinish(26,2,2));
-        list.add(new DayFinish(27,2,2));
-        list.add(new DayFinish(28,2,2));
-        list.add(new DayFinish(29,2,2));
-        list.add(new DayFinish(30,2,2));
-        list.add(new DayFinish(31,2,2));
+        SQliteOpeartion sq = new SQliteOpeartion(this, database_name, null, 1);
+        final SQLiteDatabase db = sq.getWritableDatabase();
+        SQliteOpeartion.SelectFromTask(db, "2019", "1");
+        list.clear();
+        for(TaskInfo info : SQliteOpeartion.List){
+            DayFinish temp = new DayFinish(Integer.parseInt(info.day), info.task_num, info.finished_num);
+            list.add(temp);
+        }
 
-        cal.setRenwu("2017年1月", list);
+        cal.setRenwu("2019年1月", list);
         cal.setOnClickListener(new MyCalendar.onClickListener() {
             @Override
             public void onLeftRowClick() {
