@@ -107,7 +107,7 @@ public class Check_App_Info extends AppCompatActivity implements AdapterView.OnI
         final String[] items = new String[] { "无", "10min", "20min", "30min", "60min", "90min", "120min" };
         AlertDialog.Builder builder = new AlertDialog.Builder(Check_App_Info.this);
 //        builder.setIcon(R.drawable. tools ); //设置对话框的图标
-        builder.setTitle("请选择要使用的情景模式：");  //设置对话框的标题
+        builder.setTitle("请选择该应用使用时间上限：");  //设置对话框的标题
         builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
 
             @Override

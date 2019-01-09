@@ -1,5 +1,8 @@
 package com.example.xiaoxiaobai.flagman;
 
+import android.app.AppOpsManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.app.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +60,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+        AppOpsManager appOps = (AppOpsManager) this.getSystemService(Context.APP_OPS_SERVICE);
+        int mode = appOps.checkOpNoThrow("android:get_usage_stats", android.os.Process.myUid(), this.getPackageName());
+        if (mode != AppOpsManager.MODE_ALLOWED) startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
 
         SQliteOpeartion sq = new SQliteOpeartion(this, database_name, null, 1);
         db = sq.getWritableDatabase();
@@ -191,6 +197,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast. makeText (MainActivity.this, "会有新功能的！", Toast. LENGTH_SHORT ).show();
             return true;
         }
 
@@ -203,16 +210,33 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_set) {
             Intent intent = new Intent(MainActivity.this, Check_App_Info.class);
             startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_todo1) {
+            Toast. makeText (MainActivity.this, "会有新功能的！", Toast. LENGTH_SHORT ).show();
+        } else if (id == R.id.nav_todo2) {
+            Toast. makeText (MainActivity.this, "会有新功能的！", Toast. LENGTH_SHORT ).show();
+        } else if (id == R.id.nav_todo3) {
+            Toast. makeText (MainActivity.this, "会有新功能的！", Toast. LENGTH_SHORT ).show();
         } else if (id == R.id.nav_share) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("关于我们：");
+            //builder.setIcon(R.drawable. tools );
+            builder.setMessage("这群开发者很懒，\n 什么都不想留下。");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(MainActivity.this, "感谢支持！", Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast. makeText (MainActivity.this, "依然爱你！", Toast. LENGTH_SHORT ).show();
+                }
+            });
+            builder.create().show();
 
         }
 
