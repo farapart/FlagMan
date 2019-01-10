@@ -163,7 +163,6 @@ public class MyCalendar extends View{
 
         //默认当前月份
         String cDateStr = getMonthStr(new Date());
-//        cDateStr = "2015年08月";
         setMonth(cDateStr);
     }
 

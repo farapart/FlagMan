@@ -14,7 +14,7 @@ public class App_Info {
     private long UsedTimebyDay;  //milliseconds
     private Context context;
     private int times;
-    private long flagtime;
+    private long flagtime;  //minutes
 
 
     public App_Info(UsageStats usageStats , Context context) {
@@ -36,10 +36,7 @@ public class App_Info {
         this.UsedTimebyDay = usageStats.getTotalTimeInForeground();
         this.times = (Integer)usageStats.getClass().getDeclaredField("mLaunchCount").get(usageStats);
         this.flagtime = (long)SQliteOpeartion.SelectFromCurrentTask(MainActivity.db, label);
-
-        //if(this.UsedTimebyDay > 0) {
-            this.Icon = applicationInfo.loadIcon(packageManager);
-        //}
+        this.Icon = applicationInfo.loadIcon(packageManager);
     }
 
     public void setFlagtime(long flagtime) {

@@ -102,6 +102,7 @@ public class Check_App_Info extends AppCompatActivity implements AdapterView.OnI
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         app_name = ShowList.get(position).getLabel();
         FlagTime = ShowList.get(position).getFlagtime();
+        tmpTime = 0;
 //        Toast. makeText (Check_App_Info.this, label, Toast. LENGTH_LONG ).show();
 
         final String[] items = new String[] { "无", "10min", "20min", "30min", "60min", "90min", "120min" };

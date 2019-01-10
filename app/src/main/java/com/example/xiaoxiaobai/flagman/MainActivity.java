@@ -43,15 +43,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -72,15 +63,6 @@ public class MainActivity extends AppCompatActivity
         addTempRecord();
 
         list.clear();
-
-        //SQliteOpeartion.SelectFromTask(db, "2019", "1");
-//        list.clear();
-//        for(TaskInfo info : SQliteOpeartion.List){
-//            DayFinish temp = new DayFinish(Integer.parseInt(info.day), info.task_num, info.finished_num);
-//            list.add(temp);
-//        }
-
-        //cal.setRenwu("2019年1月", list);
 
 
         Calendar calendar = Calendar.getInstance();

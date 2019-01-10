@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'FlagMan'
+            keyPassword 'hzx8865198'
+            storeFile file('C:/Users/C_Stephen/Desktop/FlagMan/FlagMan.jks')
+            storePassword 'hzx8865198'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.xiaoxiaobai.flagman"
@@ -15,11 +23,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+    productFlavors {
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0-alpha1'
     implementation 'com.android.support:support-v4:28.0.0-alpha1'
     implementation 'com.android.support:design:28.0.0-alpha1'

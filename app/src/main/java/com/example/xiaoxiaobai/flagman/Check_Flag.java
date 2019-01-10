@@ -60,7 +60,9 @@ public class Check_Flag extends AppCompatActivity {
 
         for(App_Info appInformation : ShowList) {
             map = new HashMap<String,Object>();
-            if (appInformation.getFlagtime() == 0);
+            if (appInformation.getFlagtime() == 0) {
+                continue;
+            }
             else {
                 result.task_num++;
                 map.put("label", appInformation.getLabel());
@@ -82,7 +84,7 @@ public class Check_Flag extends AppCompatActivity {
         result.day = calendar.get(Calendar.DAY_OF_MONTH);
 
         SQliteOpeartion.InsertIntoTask(MainActivity.db, result);
-        SQliteOpeartion.DeleteAllCurrentTask(MainActivity.db);
+//        SQliteOpeartion.DeleteAllCurrentTask(MainActivity.db);
         return dataList;
     }
 }

@@ -16,11 +16,27 @@
                             <entry key="launcher">
                               <value>
                                 <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="foregroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="C:\Users\xiaoxiaobai\Desktop\FlagMan\FlagMan\app\src\main\res\drawable\flag.jpg" />
+                                      <entry key="foregroundImage" value="C:\Users\C_Stephen\Desktop\FlagMan\FlagMan\app\src\main\res\drawable\flag.jpg" />
+                                      <entry key="foregroundLayerName" value="flag" />
                                     </map>
                                   </option>
                                 </PersistentState>
